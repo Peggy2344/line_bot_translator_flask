@@ -8,8 +8,6 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage,AudioMessage, TextSendMessage, AudioSendMessage, QuickReply, QuickReplyButton, MessageAction
 from flask import Flask, request, abort
-from dotenv import load_dotenv
-load_dotenv()
 app = Flask(__name__)
 
 

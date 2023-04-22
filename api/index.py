@@ -49,6 +49,10 @@ def translate_openai(text, language):
     translated_subtitles = response['choices'][0]['message']['content']
     return translated_subtitles
 
+@app.route('/')
+def home():
+    return 'Hello, World!'
+
 @app.route('/callback', methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']

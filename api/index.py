@@ -1,27 +1,21 @@
 import os
 # import requests
-import uuid
-import json
 import openai
 
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage,AudioMessage, TextSendMessage, AudioSendMessage, QuickReply, QuickReplyButton, MessageAction
 from flask import Flask, request, abort
-app = Flask(__name__)
 
-
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
 line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN'))
 handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET'))
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
-openai_key = OPENAI_API_KEY
-openai.api_key = openai_key
+app = Flask(__name__)
 
 translate_language = "Japanese"
 audio_language = "Traditional Chinese"
-
 translate_id = {}
 
 lan_dic = {"日文": "Japanese", "英文": "English", "繁體中文": "Traditional Chinese", "韓文": "Korean", 

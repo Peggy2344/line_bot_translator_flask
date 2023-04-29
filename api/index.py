@@ -6,8 +6,6 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage,AudioMessage, TextSendMessage, QuickReply, QuickReplyButton, MessageAction
 from flask import Flask, request, abort
-from dotenv import load_dotenv
-load_dotenv()
 
 
 line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN'))

@@ -4,7 +4,7 @@ import openai
 
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage,AudioMessage, TextSendMessage, QuickReply, QuickReplyButton, MessageAction
+from linebot.models import MessageEvent, TextMessage,AudioMessage, TextSendMessage,AudioSendMessage, QuickReply, QuickReplyButton, MessageAction
 from flask import Flask, request, abort
 
 

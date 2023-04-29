@@ -4,12 +4,14 @@ import openai
 
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage,AudioMessage, TextSendMessage, AudioSendMessage, QuickReply, QuickReplyButton, MessageAction
+from linebot.models import MessageEvent, TextMessage,AudioMessage, TextSendMessage, QuickReply, QuickReplyButton, MessageAction
 from flask import Flask, request, abort
+from dotenv import load_dotenv
+load_dotenv()
 
 
 line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN'))
-handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET'))
+line_handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET'))
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
 app = Flask(__name__)
@@ -53,13 +55,13 @@ def callback():
 
     try:
         print (body, signature)
-        handler.handle(body, signature)
+        line_handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
 
     return 'OK'
 
-@handler.add(MessageEvent, message=TextMessage)
+@line_handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     global translate_language, audio_language
     user_input = event.message.text
@@ -121,7 +123,7 @@ def handle_text_message(event):
             TextSendMessage(text=response))
 
 
-@handler.add(MessageEvent, message=AudioMessage)
+@line_handler.add(MessageEvent, message=AudioMessage)
 def handle_audio_message(event):
     global translate_language, audio_language
     message_id = event.message.id
